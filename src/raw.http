@@ -1,4 +1,4 @@
-
+// Use this with the awesome VS Code extension "Rest Client"
 
 GET https://rally1.rallydev.com/slm/webservice/v2.0/DefectSuite?query=(FormattedID = DS2820)
 zsessionid: {{$dotenv ZSESSIONID}}
