@@ -36,6 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     headers.insert(ACCEPT, "application/json".parse().unwrap());
     headers.insert("zsessionid", zsessionid.parse().unwrap());
     // TODO: Remove this hardcoded DS ID
+    // TODO: Figure out how to factor out commonly used functinality to a library.
     let ds_id = "DS2820";
     let url = format!("https://rally1.rallydev.com/slm/webservice/v2.0/DefectSuite?query=(FormattedID = {})", ds_id);
     let resp = client
