@@ -4,53 +4,32 @@ use dotenv::dotenv;
 use std::env;
 use serde::Deserialize;
 
-// async fn get_url(url: String) -> () {
-//     dotenv().ok();
-//     let zsessionid = env::var("ZSESSIONID").unwrap();
+use ureq::{Agent, AgentBuilder};
+use std::time::Duration;
 
-//     let client = reqwest::Client::new();
-//     let mut headers = HeaderMap::new();
-//     headers.insert(ACCEPT, "application/json".parse().unwrap());
-//     headers.insert("zsessionid", zsessionid.parse().unwrap());
-//     let resp = client
-//         .get(url)
-//         .headers(headers)
-//         .send()
-//         .await?;
-//     resp;
-// }
+let agent: Agent = ureq::AgentBuilder::new()
+    .timeout_read(Duration::from_secs(5))
+    .timeout_write(Duration::from_secs(5))
+    .build();
 
-// async fn get_defect_suite(ds_id: String) -> DefectSuite {
-//     let url = format!("https://rally1.rallydev.com/slm/webservice/v2.0/DefectSuite?query=(FormattedID = {})", ds_id);
-//     let ds = get_url(String::from(url)).await;
-//     ds.Response.json::<DefectSuite>().await.unwrap()
-// }
+let body: String = agent
+    .get("https://rally1.rallydev.com/slm/webservice/v2.0/DefectSuite")
+    .call()?
+    .into_json()?;
+
+// Reuses the connection from previous request.
+let response: String = agent
+    .put("http://example.com/upload")
+    .set("Authorization", "example-token")
+    .call()?
+    .into_json()?;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    dotenv().ok();
-    let zsessionid = env::var("ZSESSIONID").unwrap();
-
-    let client = reqwest::Client::new();
-    let mut headers = HeaderMap::new();
-    headers.insert(ACCEPT, "application/json".parse().unwrap());
-    headers.insert("zsessionid", zsessionid.parse().unwrap());
-    // TODO: Remove this hardcoded DS ID
-    // TODO: Figure out how to factor out commonly used functinality to a library.
-    let ds_id = "DS2820";
-    let url = format!("https://rally1.rallydev.com/slm/webservice/v2.0/DefectSuite?query=(FormattedID = {})", ds_id);
-    let resp = client
-        .get(url)
-        .headers(headers)
-        .send()
-        .await?;
-    
-    println!("{:#?}", resp);
-    
-    let ds_json = resp.json::<JsonResult>().await?;
-
-    // let response = get_defect_suite(String::from("DS2820"));
-    println!("{:#?}", ds_json);
+async fn main() -> Result<(), ureq::Error> {
+    let body: String = ureq::get("http://example.com")
+        .set("Example-Header", "header value")
+        .call()?
+        .into_string()?;
     Ok(())
 }
 
