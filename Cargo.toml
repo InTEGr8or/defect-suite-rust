@@ -2,6 +2,23 @@
 name = "defect-suite"
 version = "0.1.0"
 edition = "2021"
+authors = ["Mark Stouffer <1802850+InTEGr8or@users.noreply.github.com>"]
+license = ""
+description = ""
+homepage = ""
+documentation = ""
+repository = ""
+readme = ""
+keywords = [""]
+categories = [""]
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+]
+exclude = [
+    "public/assets/*",
+    "videos/*",
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
