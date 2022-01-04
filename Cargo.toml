@@ -1,16 +1,16 @@
 [package]
-name = "defect-suite"
+name = "rally-defect-suite"
 version = "0.1.0"
 edition = "2021"
 authors = ["Mark Stouffer <1802850+InTEGr8or@users.noreply.github.com>"]
-license = ""
-description = ""
-homepage = ""
-documentation = ""
-repository = ""
-readme = ""
-keywords = [""]
-categories = [""]
+license = "MIT"
+description = "A Defect Suite handler for Rally"
+homepage = "https://github.com:InTEGr8or/defect-suite-rust"
+documentation = "https://github.com:InTEGr8or/defect-suite-rust"
+repository = "https://github.com:InTEGr8or/defect-suite-rust"
+readme = "README.md"
+keywords = ["rally"]
+categories = ["cli"]
 include = [
     "**/*.rs",
     "Cargo.toml",
